@@ -10,7 +10,7 @@ class ENFAToDFA {
     
     public static Character epsilon = '\u03b5';
 
-    public static Set<Integer> getEClosure(List<List<Edge>> DFAAdjList, List<Integer> states) {
+    public static Set<Integer> getEClosure(List<List<Edge>> enfaAdjList, Set<Integer> states) {
         Deque<Integer> stack = new ArrayDeque<Integer>();
         Set<Integer> eClosure = new HashSet<Integer>();
 
@@ -21,7 +21,7 @@ class ENFAToDFA {
 
         while(!stack.isEmpty()) {
             int state = stack.removeFirst();
-            List<Edge> edgeList = DFAAdjList.get(state);
+            List<Edge> edgeList = enfaAdjList.get(state);
             for(int i = 0; i < edgeList.size(); i++) {
                 Edge edge = edgeList.get(i);
                 if(edge.transition == epsilon) {
@@ -36,11 +36,12 @@ class ENFAToDFA {
         return eClosure;
     }
 
-    public static Set<Integer> move(List<List<Edge>> DFAAdjList, List<Integer> states, Character inputSymbol) {
-        Set<Integer> result = new HashSet<Integer>();
+    public static Set<Integer> move(List<List<Edge>> enfaAdjList, Set<Integer> states, Character inputSymbol) {
+        Set<Integer> resultantStates = new HashSet<Integer>();
+
         for(int i = 0; i < states.size(); i++) {
             int state = states.get(i);
-            List<List<Edge>> edgeList = DFAAdjList.get(state);
+            List<List<Edge>> edgeList = enfaAdjList.get(state);
             for(int j = 0; j < edgeList.size(); j++) {
                 Edge edge = edgeList.get(i);
                 if(edge.transition == inputSymbol) {
@@ -48,5 +49,7 @@ class ENFAToDFA {
                 }
             }
         }
+
+        return resultantStates;
     }
 }
