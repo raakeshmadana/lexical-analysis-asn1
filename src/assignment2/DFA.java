@@ -1,19 +1,38 @@
 package assignment2;
 
-class DFA {
-    List<List<Edge>> DFAAdjList;
-    List<List<Integer>> NFAStates;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+class DFA {
+    List<List<Edge>> dfaAdjList;
+    List<Set<Integer>> nfaStates;
+
+    DFA() {
+        dfaAdjList = new ArrayList<List<Edge>>();
+        nfaStates = new ArrayList<HashSet<Integer>>();
+    }
 
     public List<List<Edge>> getAdjList() {
-        return DFAAdjList;
+        return dfaAdjList;
     }
 
-    public List<List<Integer>> getNFAStates() {
-        return NFAStates;
+    public List<Set<Integer>> getNfaStates() {
+        return nfaStates;
     }
 
-    public List<Integer> correspondingNFAStates(int i) {
-        return NFAStates.get(i);
+    public Set<Integer> getNfaStatesFromDfaState(int i) {
+        return nfaStates.get(i);
+    }
+
+    public int getDfaStateFromNfaStates(Set<Integer> states) {
+        for(int i = 0; i < nfaStates.size(); i++) {
+            if(nfaStates.get(i).equals(states)) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }
