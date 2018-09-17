@@ -1,7 +1,11 @@
 package assignment2;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -44,5 +48,21 @@ class DFA {
         }
 
         return -1;
+    }
+
+    public void printNfaStates() throws IOException{
+        BufferedWriter writer = new BufferedWriter(new FileWriter("out.txt", true));
+        writer.write("\nNFA states\n");
+
+        for(int i = 0; i < nfaStates.size(); i++) {
+            Set<Integer> states = nfaStates.get(i);
+            Iterator iterator = states.iterator();
+            while(iterator.hasNext()) {
+                writer.write(Integer.toString((Integer)iterator.next()) + " ");
+            }
+            writer.write("\n");
+        }
+
+        writer.close();
     }
 }
