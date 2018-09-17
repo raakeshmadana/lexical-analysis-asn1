@@ -6,9 +6,11 @@ import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 class ENFAToDFA {
@@ -67,9 +69,9 @@ class ENFAToDFA {
 
         DFA dfa = new DFA();
         // Add the first state to the DFA
-        List<List<Edge>> dfaAdjList = dfa.getAdjList();
-        List<Edge> edgeList = new ArrayList<Edge>();
-        dfaAdjList.add(edgeList);
+        List<Map<Character, Integer>> dfaAdjList = dfa.getAdjList();
+        Map<Character, Integer> edgeMap = new HashMap<Character, Integer>();
+        dfaAdjList.add(edgeMap);
 
         // Add the corresponding NFA states
         List<Set<Integer>> nfaStates = dfa.getNfaStates();
@@ -98,8 +100,8 @@ class ENFAToDFA {
 
                 // If the computed e-closure is not already in the DFA, add it
                 if(!dfa.containsNfaStates(eClosure)) {
-                    edgeList = new ArrayList<Edge>();
-                    dfaAdjList.add(edgeList);
+                    edgeMap = new HashMap<Character, Integer>();
+                    dfaAdjList.add(edgeMap);
                     nfaStates.add(eClosure);
 
                     stack.addFirst(dfaAdjList.size() - 1);
@@ -107,9 +109,8 @@ class ENFAToDFA {
 
                 // Add the transition from T to U on c
                 int destinationDfaState = dfa.getDfaStateFromNfaStates(eClosure);
-                edgeList = dfaAdjList.get(currentDfaState);
-                Edge edge = new Edge(destinationDfaState, c);
-                edgeList.add(edge);
+                edgeMap = dfaAdjList.get(currentDfaState);
+                edgeMap.put(c, destinationDfaState);
             }
 
         }
@@ -118,15 +119,14 @@ class ENFAToDFA {
     }
 
     public static void printAdjList(DFA dfa) throws IOException {
-        List<List<Edge>> dfaAdjList = dfa.getAdjList();
+        List<Map<Character, Integer>> dfaAdjList = dfa.getAdjList();
         BufferedWriter writer = new BufferedWriter(new FileWriter("out.txt", true));
-        writer.write("\nAdjacency List\n");
+        writer.write("\nDFA Adjacency List\n");
         for(int i = 0; i < dfaAdjList.size(); i++) {
-            List<Edge> edgeList = dfaAdjList.get(i);
+            Map<Character, Integer> edgeMap = dfaAdjList.get(i);
             writer.write(i + "\n");
-            for(int j = 0; j < edgeList.size(); j++) {
-                Edge edge = edgeList.get(j);
-                writer.write(edge.transition + " -> " + edge.state + ", ");
+            for(Map.Entry<Character, Integer> entry : edgeMap.entrySet()) {
+                writer.write(entry.getKey() + " -> " + entry.getValue() + ", ");
             }
             writer.write("\n");
         }

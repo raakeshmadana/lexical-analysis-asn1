@@ -4,21 +4,23 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 class DFA {
-    List<List<Edge>> dfaAdjList;
+    List<Map<Character, Integer>> dfaAdjList;
     List<Set<Integer>> nfaStates;
 
     DFA() {
-        dfaAdjList = new ArrayList<List<Edge>>();
+        dfaAdjList = new ArrayList<Map<Character, Integer>>();
         nfaStates = new ArrayList<Set<Integer>>();
     }
 
-    public List<List<Edge>> getAdjList() {
+    public List<Map<Character, Integer>> getAdjList() {
         return dfaAdjList;
     }
 

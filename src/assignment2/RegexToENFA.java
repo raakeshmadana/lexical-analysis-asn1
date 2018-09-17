@@ -107,7 +107,7 @@ public class RegexToENFA {
     public static void printAdjList(ENFA combinedEnfa) throws IOException {
         List<List<Edge>> combinedEnfaAdjList = combinedEnfa.getAdjList();
         BufferedWriter writer = new BufferedWriter(new FileWriter("out.txt", true));
-        writer.write("\nAdjacency List\n");
+        writer.write("\nENFA Adjacency List\n");
         for(int i = 0; i < combinedEnfaAdjList.size(); i++) {
             List<Edge> edgeList = combinedEnfaAdjList.get(i);
             writer.write(i + "\n");

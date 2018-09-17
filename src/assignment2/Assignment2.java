@@ -213,5 +213,8 @@ class Assignment2 {
         combinedEnfa.addFinalState(combinedEnfaAdjList.size() - 1, "BAR");
 
         RegexToENFA.printAdjList(combinedEnfa);
+
+        DFA dfa = ENFAToDFA.toDFA(combinedEnfa, inputSymbols);
+        ENFAToDFA.printAdjList(dfa);
     }
 }
