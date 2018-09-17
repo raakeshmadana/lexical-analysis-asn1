@@ -108,7 +108,7 @@ class ENFAToDFA {
                 // Add the transition from T to U on c
                 int destinationDfaState = dfa.getDfaStateFromNfaStates(eClosure);
                 edgeList = dfaAdjList.get(currentDfaState);
-                Edge edge = new Edge(destinationDfaState, epsilon);
+                Edge edge = new Edge(destinationDfaState, c);
                 edgeList.add(edge);
             }
 
