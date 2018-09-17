@@ -113,4 +113,21 @@ class ENFAToDFA {
 
         return dfa;
     }
+
+    public static void printAdjList(DFA dfa) throws IOException {
+        List<List<Edge>> dfaAdjList = dfa.getAdjList();
+        BufferedWriter writer = new BufferedWriter(new FileWriter("out.txt", true));
+        writer.write("\nAdjacency List\n");
+        for(int i = 0; i < dfaAdjList.size(); i++) {
+            List<Edge> edgeList = dfaAdjList.get(i);
+            writer.write(i + "\n");
+            for(int j = 0; j < edgeList.size(); j++) {
+                Edge edge = edgeList.get(j);
+                writer.write(edge.transition + " -> " + edge.state + ", ");
+            }
+            writer.write("\n");
+        }
+
+        writer.close();
+    }
 }
