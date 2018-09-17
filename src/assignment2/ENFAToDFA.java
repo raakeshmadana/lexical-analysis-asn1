@@ -33,7 +33,7 @@ class ENFAToDFA {
             List<Edge> edgeList = enfaAdjList.get(state);
             for(int i = 0; i < edgeList.size(); i++) {
                 Edge edge = edgeList.get(i);
-                if(edge.transition == epsilon) {
+                if(edge.transition.equals(epsilon)) {
                     if(!eClosure.contains(edge.state)) {
                         eClosure.add(edge.state);
                         stack.addFirst(edge.state);
