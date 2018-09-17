@@ -18,7 +18,7 @@ class ENFAToDFA {
     public static Set<Integer> getEClosure(List<List<Edge>> enfaAdjList, Set<Integer> states) {
         Deque<Integer> stack = new ArrayDeque<Integer>();
         Set<Integer> eClosure = new HashSet<Integer>();
-
+        
         // Push all states into stack
         Iterator iterator = states.iterator();
         while(iterator.hasNext()) {
@@ -94,7 +94,7 @@ class ENFAToDFA {
                 Set<Integer> eClosure = getEClosure(enfaAdjList, resultantStates);
 
                 // If the computed e-closure is not already in the DFA, add it
-                if(!nfaStates.contains(eClosure)) {
+                if(!dfa.containsNfaStates(eClosure)) {
                     edgeList = new ArrayList<Edge>();
                     dfaAdjList.add(edgeList);
                     nfaStates.add(eClosure);

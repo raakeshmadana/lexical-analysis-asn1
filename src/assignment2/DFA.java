@@ -22,6 +22,16 @@ class DFA {
         return nfaStates;
     }
 
+    public boolean containsNfaStates(Set<Integer> states) {
+        for(int i = 0; i < nfaStates.size(); i++) {
+            if(states.equals(nfaStates.get(i))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public Set<Integer> getNfaStatesFromDfaState(int i) {
         return nfaStates.get(i);
     }
