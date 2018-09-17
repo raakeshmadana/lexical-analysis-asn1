@@ -102,7 +102,7 @@ class ENFAToDFA {
                     dfaAdjList.add(edgeList);
                     nfaStates.add(eClosure);
 
-                    stack.addFirst(dfaAdjList.size());
+                    stack.addFirst(dfaAdjList.size() - 1);
                 }
 
                 // Add the transition from T to U on c
