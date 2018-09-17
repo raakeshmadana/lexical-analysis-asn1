@@ -19,6 +19,9 @@ class ENFAToDFA {
         Deque<Integer> stack = new ArrayDeque<Integer>();
         Set<Integer> eClosure = new HashSet<Integer>();
         
+        // Initialize e-closure
+        eClosure.addAll(states);
+
         // Push all states into stack
         Iterator iterator = states.iterator();
         while(iterator.hasNext()) {
