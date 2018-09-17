@@ -1,8 +1,13 @@
 package assignment2;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -15,8 +20,9 @@ class ENFAToDFA {
         Set<Integer> eClosure = new HashSet<Integer>();
 
         // Push all states into stack
-        for(int i = 0; i < states.size(); i++) {
-            stack.addFirst(states.get(i));
+        Iterator iterator = states.iterator();
+        while(iterator.hasNext()) {
+            stack.addFirst((Integer)iterator.next());
         }
 
         while(!stack.isEmpty()) {
@@ -39,13 +45,14 @@ class ENFAToDFA {
     public static Set<Integer> move(List<List<Edge>> enfaAdjList, Set<Integer> states, Character inputSymbol) {
         Set<Integer> resultantStates = new HashSet<Integer>();
 
-        for(int i = 0; i < states.size(); i++) {
-            int state = states.get(i);
-            List<List<Edge>> edgeList = enfaAdjList.get(state);
-            for(int j = 0; j < edgeList.size(); j++) {
+        Iterator iterator = states.iterator();
+        while(iterator.hasNext()) {
+            int state = (Integer)iterator.next();
+            List<Edge> edgeList = enfaAdjList.get(state);
+            for(int i = 0; i < edgeList.size(); i++) {
                 Edge edge = edgeList.get(i);
                 if(edge.transition == inputSymbol) {
-                    result.add(edge.state);
+                    resultantStates.add(edge.state);
                 }
             }
         }
