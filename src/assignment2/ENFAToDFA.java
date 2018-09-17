@@ -52,4 +52,57 @@ class ENFAToDFA {
 
         return resultantStates;
     }
+
+    public static DFA toDFA(ENFA enfa, List<Character> inputSymbols) {
+
+        DFA dfa = new DFA();
+        // Add the first state to the DFA
+        List<List<Edge>> dfaAdjList = dfa.getAdjList();
+        List<Edge> edgeList = new ArrayList<Edge>();
+        dfaAdjList.add(edgeList);
+
+        // Add the corresponding NFA states
+        List<Set<Integer>> nfaStates = dfa.getNfaStates();
+        Set<Integer> states = new HashSet<Integer>();
+        states.add(0);
+        List<List<Edge>> enfaAdjList = enfa.getAdjList();
+        nfaStates.add(getEClosure(enfaAdjList, states)); // e-closure of the start state of the ENFA is the first state of the DFA
+
+        // Use stack to "mark" states
+        Deque<Integer> stack = new ArrayDeque<Integer>();
+
+        // Add the only state of the DFA to the stack
+        stack.addFirst(0);
+
+        while(!stack.isEmpty()) { // While there is an unmarked state in the DFA
+            // Mark the state T
+            int currentDfaState = stack.removeFirst();
+
+            for(int i = 0; i < inputSymbols.size(); i++) { // For all input symbols of the alphabet
+                Character c = inputSymbols.get(i);
+
+                // Compute the e-closure of move(T, c)
+                states = dfa.getNfaStatesFromDfaState(currentDfaState);
+                Set<Integer> resultantStates = move(enfaAdjList, states, c);
+                Set<Integer> eClosure = getEClosure(enfaAdjList, resultantStates);
+
+                // If the computed e-closure is not already in the DFA, add it
+                if(!nfaStates.contains(eClosure)) {
+                    edgeList = new ArrayList<Edge>();
+                    dfaAdjList.add(edgeList);
+                    nfaStates.add(eClosure);
+
+                    stack.addFirst(dfaAdjList.size());
+                }
+
+                // Add the transition from T to U on c
+                int destinationDfaState = dfa.getDfaStateFromNfaStates(eClosure);
+                edgeList = dfaAdjList.get(currentDfaState);
+                Edge edge = new Edge(destinationDfaState, epsilon);
+                edgeList.add(edge);
+            }
+
+        }
+
+    }
 }
