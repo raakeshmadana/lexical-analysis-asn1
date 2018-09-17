@@ -11,7 +11,7 @@ class DFA {
 
     DFA() {
         dfaAdjList = new ArrayList<List<Edge>>();
-        nfaStates = new ArrayList<HashSet<Integer>>();
+        nfaStates = new ArrayList<Set<Integer>>();
     }
 
     public List<List<Edge>> getAdjList() {
