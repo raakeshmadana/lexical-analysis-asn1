@@ -115,7 +115,37 @@ class ENFAToDFA {
 
         }
 
+        identifyFinalStates(dfa, enfa.getFinalStates());
+
         return dfa;
+    }
+
+    private static void identifyFinalStates(DFA dfa, Map<Integer, String> nfaFinalStates) {
+        List<Set<Integer>> nfaStates = dfa.getNfaStates();
+        Map<Integer, String> finalStates = dfa.getFinalStates();
+
+        for(int i = 0; i < nfaStates.size(); i++) {
+            Set<Integer> states = nfaStates.get(i);
+            Iterator iterator = states.iterator();
+            while(iterator.hasNext()) {
+                int state = (Integer)iterator.next();
+                String tokenType = nfaFinalStates.get(state);
+                if(tokenType != null) {
+                    finalStates.put(i, tokenType);
+                }
+            }
+        }
+    }
+
+    public static void printFinalStates(DFA dfa) throws IOException {
+        Map<Integer, String> finalStates = dfa.getFinalStates();
+        BufferedWriter writer = new BufferedWriter(new FileWriter("out.txt", true));
+        writer.write("\nDFA Final States");
+        for(Map.Entry<Integer, String> entry : finalStates.entrySet()) {
+            writer.write(Integer.toString(entry.getKey()) + " " + entry.getValue() + "\n");
+        }
+
+        writer.close();
     }
 
     public static void printAdjList(DFA dfa) throws IOException {

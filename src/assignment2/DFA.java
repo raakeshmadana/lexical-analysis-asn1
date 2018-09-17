@@ -14,10 +14,12 @@ import java.util.Set;
 class DFA {
     List<Map<Character, Integer>> dfaAdjList;
     List<Set<Integer>> nfaStates;
+    Map<Integer, String> finalStates;
 
     DFA() {
         dfaAdjList = new ArrayList<Map<Character, Integer>>();
         nfaStates = new ArrayList<Set<Integer>>();
+        finalStates = new HashMap<Integer, String>();
     }
 
     public List<Map<Character, Integer>> getAdjList() {
@@ -26,6 +28,10 @@ class DFA {
 
     public List<Set<Integer>> getNfaStates() {
         return nfaStates;
+    }
+
+    public Map<Integer, String> getFinalStates() {
+        return finalStates;
     }
 
     public boolean containsNfaStates(Set<Integer> states) {

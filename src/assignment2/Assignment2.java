@@ -216,5 +216,6 @@ class Assignment2 {
 
         DFA dfa = ENFAToDFA.toDFA(combinedEnfa, inputSymbols);
         ENFAToDFA.printAdjList(dfa);
+        ENFAToDFA.printFinalStates(dfa);
     }
 }
