@@ -47,7 +47,7 @@ class Assignment2 {
     public static ENFA combinedEnfa;
     public static List<Character> inputSymbols;
 
-    public static addInputSymbols() {
+    public static void addInputSymbols() {
         inputSymbols = new ArrayList<Character>();
 
         // Add upper case letters
